@@ -3,6 +3,7 @@
 # import libraries
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForCausalLM
 import gradio as gr
+import torch
 
 # variable to keep chat history
 chat_history = []
@@ -40,8 +41,15 @@ def select_model(prompt, model_name):
 # function to generate response from the model
 def generate_response(prompt, model, tokenizer):
     
+    # get only last 2 exchanges for Blenderbot to save context length
+    if "blenderbot" in model.name_or_path.lower():
+        short_history = chat_history[-2:]
+        max_len = 128 if "blenderbot" in model.name_or_path.lower() else 256
+    else:
+        short_history = chat_history
+
     conversation = ""
-    for u, a in chat_history:
+    for u, a in short_history:
         conversation += f"User: {u}\nAssistant: {a}\n"
     conversation += f"User: {prompt}\nAssistant: "
 
@@ -49,7 +57,7 @@ def generate_response(prompt, model, tokenizer):
     inputs = tokenizer(conversation, 
                        return_tensors="pt", 
                        truncation=True, 
-                       max_length=256)
+                       max_length=max_len)
 
     # generate model response
     outputs = model.generate(
@@ -68,7 +76,7 @@ def generate_response(prompt, model, tokenizer):
         response = response.split("Assistant:")[-1].strip()
 
     chat_history.append((prompt, response))
-    return response 
+    return conversation, response
 
 # Note: use below to explore vocabulary files for pretrained models
 # tokenizer.pretrained_vocab_files_map
@@ -87,13 +95,14 @@ def get_interface():
                 "gpt2",
                 "facebook/opt-1.3b",
                 "google/flan-t5-small",
-                "google/flan-t5-base",
-                "tiiuae/falcon-7b-instruct",
+                "google/flan-t5-base"
             ],
             label="Select Model",
-            value="Qwen/Qwen2-1.5B-Instruct")],
-        outputs=gr.Textbox(label="Conversation"),
-        title="Hi, I am ChattyBot!",
-        description="I am an AI chatbot built to assist you with your queries. \n Waiting for your message... :)"
+            value="facebook/blenderbot-400M-distill")],
+        outputs=[gr.Textbox(label="Conversation"), 
+                 gr.Textbox(label="Response")
+                 ],
+        title="ChattyBot",
+        description="Local chatbot using Hugging Face models. Select a model and send a message"
         )
 
