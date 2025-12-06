@@ -4,6 +4,8 @@ A simple, local chatbot application that demonstrates how to run pre-trained mod
 
 **Key points:** the app loads a tokenizer and model from Hugging Face, accepts a user message and a selected model, and returns the model's generated reply in the web UI.
 
+<img width="2492" height="922" alt="image" src="https://github.com/user-attachments/assets/53660b16-d583-4c5d-88c4-01febcd37a9b" />
+
 ## Features
 - **Interactive chat** using Hugging Face models.
 - **Web UI** powered by Gradio for quick local testing.
