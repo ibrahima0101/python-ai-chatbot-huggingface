@@ -6,6 +6,18 @@ A simple, local chatbot application that demonstrates how to run pre-trained mod
 
 <img width="2492" height="922" alt="image" src="https://github.com/user-attachments/assets/53660b16-d583-4c5d-88c4-01febcd37a9b" />
 
+## Table of Contents
+- [Features](#features)
+- [Requirements](#requirements)
+- [Quick Start](#quick-start)
+- [Run with Docker](#run-with-docker)
+- [Models and Recommendations](#models-and-recommendations)
+- [Notes about first run](#notes-about-first-run)
+- [Troubleshooting](#troubleshooting)
+- [Files in this repository](#files-in-this-repository)
+- [Development tips](#development-tips)
+- [Contributing](#contributing)
+  
 ## Features
 - **Interactive chat** using Hugging Face models.
 - **Web UI** powered by Gradio for quick local testing.
