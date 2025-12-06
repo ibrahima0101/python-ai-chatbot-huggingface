@@ -13,15 +13,17 @@ def load_model(model_name):
     if model_name in model_cache:
         return model_cache[model_name]
     
+    # choose float16 on CUDA when available
+    preferred_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
     if model_name in ["google/flan-t5-small", "google/flan-t5-base","facebook/blenderbot-400M-distill"]:
         model = AutoModelForSeq2SeqLM.from_pretrained(
             model_name,
-            torch_dtype="auto",
+            dtype=preferred_dtype,
             low_cpu_mem_usage=True)
     else:
         model = AutoModelForCausalLM.from_pretrained(
             model_name,
-            torch_dtype="auto",
+            dtype=preferred_dtype,
             low_cpu_mem_usage=True)
 
     tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -44,10 +46,11 @@ def generate_response(prompt, model, tokenizer):
     # get only last 2 exchanges for Blenderbot to save context length
     if "blenderbot" in model.name_or_path.lower():
         short_history = chat_history[-2:]
-        max_len = 128 if "blenderbot" in model.name_or_path.lower() else 256
+        max_len = 128
     else:
         short_history = chat_history
-
+        max_len = 256
+        
     conversation = ""
     for u, a in short_history:
         conversation += f"User: {u}\nAssistant: {a}\n"
@@ -91,8 +94,6 @@ def get_interface():
                 "Qwen/Qwen2-1.5B-Instruct",
                 "microsoft/phi-2",
                 "facebook/blenderbot-400M-distill",
-                "distilgpt2",
-                "gpt2",
                 "facebook/opt-1.3b",
                 "google/flan-t5-small",
                 "google/flan-t5-base"
