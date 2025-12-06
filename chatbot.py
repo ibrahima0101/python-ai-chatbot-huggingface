@@ -13,9 +13,15 @@ def load_model(model_name):
         return model_cache[model_name]
     
     if model_name in ["google/flan-t5-small", "google/flan-t5-base","facebook/blenderbot-400M-distill"]:
-        model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+        model = AutoModelForSeq2SeqLM.from_pretrained(
+            model_name,
+            torch_dtype="auto",
+            low_cpu_mem_usage=True)
     else:
-        model = AutoModelForCausalLM.from_pretrained(model_name)
+        model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            torch_dtype="auto",
+            low_cpu_mem_usage=True)
 
     tokenizer = AutoTokenizer.from_pretrained(model_name)
 
@@ -34,30 +40,35 @@ def select_model(prompt, model_name):
 # function to generate response from the model
 def generate_response(prompt, model, tokenizer):
     
-    # append user prompt to the chat history
-    chat_history.append(f"User: {prompt}")
-    print("chat_history (after user prompt):", chat_history)
-
-    # the input text considering the chat history
-    model_input_text = "\n".join(chat_history)
-    print("model_input_text:", model_input_text)
+    conversation = ""
+    for u, a in chat_history:
+        conversation += f"User: {u}\nAssistant: {a}\n"
+    conversation += f"User: {prompt}\nAssistant: "
 
     # tokenize the model_input_text (encode_plus used as we give new prompt and chat history together)
-    inputs = tokenizer(model_input_text, return_tensors="pt")
-    # print(inputs)
+    inputs = tokenizer(conversation, 
+                       return_tensors="pt", 
+                       truncation=True, 
+                       max_length=256)
 
     # generate model response
-    outputs = model.generate(**inputs)
-    # print(outputs)
+    outputs = model.generate(
+        **inputs,
+        max_new_tokens=80,
+        do_sample=True,
+        temperature=0.7,
+        top_p=0.9
+        )
 
     response = tokenizer.decode(outputs[0], skip_special_tokens=True)
     print("response:", response)
 
-    # append model response to the chat history
-    chat_history.append(f"Model: {response}")
-    print("chat_history (after model response):", chat_history)
+    # extract only the assistant reply
+    if "Assistant:" in response:
+        response = response.split("Assistant:")[-1].strip()
 
-    return response
+    chat_history.append((prompt, response))
+    return response 
 
 # Note: use below to explore vocabulary files for pretrained models
 # tokenizer.pretrained_vocab_files_map
